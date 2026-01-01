@@ -1,10 +1,10 @@
 package net.happykoo.membership.application.service;
 
 import lombok.RequiredArgsConstructor;
+import net.happykoo.common.UseCase;
 import net.happykoo.membership.application.port.in.RegisterMembershipUseCase;
 import net.happykoo.membership.application.port.in.command.RegisterMembershipCommand;
 import net.happykoo.membership.application.port.out.RegisterMembershipPort;
-import net.happykoo.membership.common.UseCase;
 import net.happykoo.membership.domain.Membership;
 import net.happykoo.membership.domain.Membership.MembershipAddress;
 import net.happykoo.membership.domain.Membership.MembershipEmail;

@@ -2,12 +2,12 @@ package net.happykoo.membership.adapter.out.persistence;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import net.happykoo.common.PersistenceAdapter;
 import net.happykoo.membership.adapter.out.persistence.jpa.JpaMembershipRepository;
 import net.happykoo.membership.adapter.out.persistence.jpa.entity.MembershipJpaEntity;
 import net.happykoo.membership.application.port.out.FindMembershipPort;
 import net.happykoo.membership.application.port.out.ModifyMembershipPort;
 import net.happykoo.membership.application.port.out.RegisterMembershipPort;
-import net.happykoo.membership.common.PersistenceAdapter;
 import net.happykoo.membership.domain.Membership;
 import net.happykoo.membership.domain.Membership.MembershipId;
 

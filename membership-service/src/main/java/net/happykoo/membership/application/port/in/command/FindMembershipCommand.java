@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import net.happykoo.membership.common.SelfValidating;
+import net.happykoo.common.SelfValidating;
 
 @Builder
 @Data

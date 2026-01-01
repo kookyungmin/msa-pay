@@ -1,9 +1,9 @@
 package net.happykoo.membership.adapter.in.web;
 
 import lombok.RequiredArgsConstructor;
+import net.happykoo.common.WebAdapter;
 import net.happykoo.membership.application.port.in.FindMembershipUseCase;
 import net.happykoo.membership.application.port.in.command.FindMembershipCommand;
-import net.happykoo.membership.common.WebAdapter;
 import net.happykoo.membership.domain.Membership;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
