@@ -30,7 +30,8 @@ public class RegisterMembershipCommand extends SelfValidating<RegisterMembership
       String name,
       String email,
       String address,
-      boolean isCorp) {
+      boolean isCorp
+  ) {
     this.name = name;
     this.email = email;
     this.address = address;

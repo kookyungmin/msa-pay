@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://mysql:3306/membership?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://mysql:3306/banking?serverTimezone=UTC&characterEncoding=UTF-8
     username: local
     password: local
     driver-class-name: com.mysql.cj.jdbc.Driver

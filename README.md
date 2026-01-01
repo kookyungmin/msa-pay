@@ -54,6 +54,14 @@ MSA, 헥사고날 아키텍처 기반 간편 결제 시스템
 
 ![Banking Sequence Example](image/Banking_Sequence_Example.png)
 
+```
+# 이미지 빌드
+./gradlew :banking-service:jibDockerBuild
+
+# 이미지 빌드 후 dockerhub push
+./gradle :banking-service:jib
+```
+
 ### Money Service
 
 고객의 충전 잔액(머니) CRUD, 충전 내역 조회 등의 기능을 제공하는 서비스

@@ -1,0 +1,37 @@
+package net.happykoo.banking.adapter.out.persistence;
+
+import lombok.RequiredArgsConstructor;
+import net.happykoo.banking.adapter.out.persistence.jpa.JpaRegisteredBankAccountRepository;
+import net.happykoo.banking.adapter.out.persistence.jpa.entity.JpaRegisteredBankAccountEntity;
+import net.happykoo.banking.application.port.out.RegisterBankAccountPort;
+import net.happykoo.banking.domain.RegisteredBankAccount;
+import net.happykoo.banking.domain.RegisteredBankAccount.BankAccountNumber;
+import net.happykoo.banking.domain.RegisteredBankAccount.BankName;
+import net.happykoo.banking.domain.RegisteredBankAccount.LinkedStatusIsValid;
+import net.happykoo.banking.domain.RegisteredBankAccount.MembershipId;
+import net.happykoo.common.PersistenceAdapter;
+
+@PersistenceAdapter
+@RequiredArgsConstructor
+public class RegisteredBankAccountPersistenceAdapter implements RegisterBankAccountPort {
+
+  private final JpaRegisteredBankAccountRepository jpaRegisteredBankAccountRepository;
+  private final RegisteredBankAccountMapper registeredBankAccountMapper;
+
+  @Override
+  public RegisteredBankAccount createBankAccount(
+      MembershipId membershipId,
+      BankName bankName,
+      BankAccountNumber bankAccountNumber
+  ) {
+    JpaRegisteredBankAccountEntity entity = jpaRegisteredBankAccountRepository.save(
+        new JpaRegisteredBankAccountEntity(
+            membershipId.value(),
+            bankName.value(),
+            bankAccountNumber.value(),
+            true
+        ));
+
+    return registeredBankAccountMapper.mapToDomainEntity(entity);
+  }
+}

@@ -26,6 +26,19 @@ services:
       - mysql
     environment:
       SPRING_PROFILES_ACTIVE: local
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+  banking-service:
+    image: happy-pay-banking-service:0.0.1
+    pull_policy: never # 운영 환경에서는 always
+    networks:
+      - happypay_network
+    ports:
+      - "18082:8080"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
 
 networks:
   happypay_network:
