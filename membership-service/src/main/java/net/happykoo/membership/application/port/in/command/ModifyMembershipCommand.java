@@ -9,7 +9,11 @@ import net.happykoo.membership.common.SelfValidating;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class RegisterMembershipCommand extends SelfValidating<RegisterMembershipCommand> {
+public class ModifyMembershipCommand extends SelfValidating<ModifyMembershipCommand> {
+
+  @NotNull
+  @NotBlank
+  private final String membershipId;
 
   @NotNull
   @NotBlank
@@ -23,17 +27,23 @@ public class RegisterMembershipCommand extends SelfValidating<RegisterMembership
   @NotBlank
   private final String address;
 
+  private final boolean isValid;
+
   private final boolean isCorp;
 
   @Builder
-  public RegisterMembershipCommand(
+  public ModifyMembershipCommand(
+      String membershipId,
       String name,
       String email,
       String address,
+      boolean isValid,
       boolean isCorp) {
+    this.membershipId = membershipId;
     this.name = name;
     this.email = email;
     this.address = address;
+    this.isValid = isValid;
     this.isCorp = isCorp;
 
     validateSelf();

@@ -9,7 +9,7 @@ public class MembershipMapper {
 
   Membership mapToDomainEntity(MembershipJpaEntity membership) {
     return Membership.generateMember(
-        new Membership.MembershipId(membership.getMembershipId().toString()),
+        new Membership.MembershipId(membership.getId().toString()),
         new Membership.MembershipName(membership.getName()),
         new Membership.MembershipEmail(membership.getEmail()),
         new Membership.MembershipAddress(membership.getAddress()),

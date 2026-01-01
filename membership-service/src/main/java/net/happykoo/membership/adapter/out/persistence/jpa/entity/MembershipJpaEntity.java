@@ -18,7 +18,7 @@ public class MembershipJpaEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long membershipId;
+  private Long id;
 
   private String name;
 
@@ -31,16 +31,28 @@ public class MembershipJpaEntity {
   private boolean isCorp;
 
   public MembershipJpaEntity(
+      Long id,
       String name,
       String email,
       String address,
       boolean isValid,
       boolean isCorp
   ) {
+    this.id = id;
     this.name = name;
     this.email = email;
     this.address = address;
     this.isValid = isValid;
     this.isCorp = isCorp;
+  }
+
+  public MembershipJpaEntity(
+      String name,
+      String email,
+      String address,
+      boolean isValid,
+      boolean isCorp
+  ) {
+    this(null, name, email, address, isValid, isCorp);
   }
 }
