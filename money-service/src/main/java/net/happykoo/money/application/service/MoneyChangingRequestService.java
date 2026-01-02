@@ -37,15 +37,19 @@ public class MoneyChangingRequestService implements IncreaseMoneyRequestUseCase 
     //TODO: 5. 펌뱅킹 수행 (고객의 연동된 계좌 -> 해피페이 법인 계좌) (뱅킹 서비스)
 
     //TODO: 6. 펌뱅킹 성공하면, 멤버의 머니도 증액, 실패하면 상태 변경
-    changeMemberMoneyPort.increaseMemberMoney(
-        new MemberMoney.MembershipId(command.getTargetMembershipId()),
-        new MemberMoney.Balance(command.getMoneyAmount())
-    );
+    boolean isSuccess = true;
+    if (isSuccess) {
+      changeMemberMoneyPort.increaseMemberMoney(
+          new MemberMoney.MembershipId(command.getTargetMembershipId()),
+          new MemberMoney.Balance(command.getMoneyAmount())
+      );
+      moneyChangingRequest.success();
+    }
 
     return saveMoneyChangingRequestPort.updateMoneyChangingStatus(
         new MoneyChangingRequest.MoneyChangingRequestId(
             moneyChangingRequest.getMoneyChangingRequestId()),
-        new MoneyChangingRequest.RequestStatus(moneyChangingRequest.getStatus())
+        new MoneyChangingRequest.RequestStatus(moneyChangingRequest.getRequestStatus())
     );
   }
 }

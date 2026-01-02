@@ -12,7 +12,7 @@ public class MoneyChangingRequest {
   private final String targetMembershipId;
   private final MoneyChangingRequestType requestType;
   private final int moneyAmount;
-  private final MoneyChangingRequestStatus status;
+  private MoneyChangingRequestStatus requestStatus;
   private String message;
 
   public static MoneyChangingRequest generateMoneyChangingRequest(
@@ -31,6 +31,10 @@ public class MoneyChangingRequest {
         status.value(),
         message.value()
     );
+  }
+
+  public void success() {
+    this.requestStatus = MoneyChangingRequestStatus.SUCCESS;
   }
 
   public record MoneyChangingRequestId(String value) {
