@@ -23,7 +23,7 @@ public class ModifyMembershipController {
   ResponseEntity<Membership> modifyMembership(
       @PathVariable String membershipId,
       @RequestBody ModifyMembershipRequest request) {
-    ModifyMembershipCommand command = ModifyMembershipCommand.builder()
+    var command = ModifyMembershipCommand.builder()
         .membershipId(membershipId)
         .name(request.name())
         .address(request.address())

@@ -34,7 +34,7 @@ public class RegisterBankAccountService implements RegisterBankAccountUseCase {
     }
 
     //3. 정상 계좌인지 외부 은행에 확인 -> 정상 계좌라면 등록, 그렇지 않으면 에러 발생
-    BankAccountData bankAccountData = requestBankAccountInfoPort.requestBankAccountInfo(
+    var bankAccountData = requestBankAccountInfoPort.requestBankAccountInfo(
         new BankAccountPayload(command.getBankName(), command.getBankAccountNumber())
     );
     if (!bankAccountData.isValid()) {

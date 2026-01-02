@@ -25,7 +25,7 @@ public class RegisteredBankAccountPersistenceAdapter implements RegisterBankAcco
       BankName bankName,
       BankAccountNumber bankAccountNumber
   ) {
-    JpaRegisteredBankAccountEntity entity = jpaRegisteredBankAccountRepository.save(
+    var entity = jpaRegisteredBankAccountRepository.save(
         new JpaRegisteredBankAccountEntity(
             membershipId.value(),
             bankName.value(),

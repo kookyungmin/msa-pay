@@ -1,12 +1,16 @@
 package net.happykoo.banking.adapter.out.external.bank;
 
 import net.happykoo.banking.application.port.out.RequestBankAccountInfoPort;
+import net.happykoo.banking.application.port.out.RequestFirmBankingPort;
+import net.happykoo.banking.application.port.out.data.FirmBankingData;
 import net.happykoo.banking.application.port.out.payload.BankAccountPayload;
 import net.happykoo.banking.application.port.out.data.BankAccountData;
+import net.happykoo.banking.application.port.out.payload.FirmBankingPayload;
 import net.happykoo.common.ExternalSystemAdapter;
 
 @ExternalSystemAdapter
-public class BankAccountExternalAdapter implements RequestBankAccountInfoPort {
+public class BankAccountExternalAdapter implements RequestBankAccountInfoPort,
+    RequestFirmBankingPort {
 
   @Override
   public BankAccountData requestBankAccountInfo(BankAccountPayload payload) {
@@ -18,5 +22,10 @@ public class BankAccountExternalAdapter implements RequestBankAccountInfoPort {
         "홍길동",
         true
     );
+  }
+
+  @Override
+  public FirmBankingData requestFirmBanking(FirmBankingPayload payload) {
+    return new FirmBankingData(true);
   }
 }

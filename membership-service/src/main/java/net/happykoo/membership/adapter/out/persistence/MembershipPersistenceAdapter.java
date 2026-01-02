@@ -26,7 +26,7 @@ public class MembershipPersistenceAdapter implements RegisterMembershipPort, Fin
       Membership.MembershipAddress membershipAddress,
       Membership.MembershipIsCorp membershipIsCorp
   ) {
-    MembershipJpaEntity entity = jpaMembershipRepository.save(new MembershipJpaEntity(
+    var entity = jpaMembershipRepository.save(new MembershipJpaEntity(
         membershipName.value(),
         membershipEmail.value(),
         membershipAddress.value(),
@@ -54,7 +54,7 @@ public class MembershipPersistenceAdapter implements RegisterMembershipPort, Fin
       Membership.MembershipIsValid membershipIsValid,
       Membership.MembershipIsCorp membershipIsCorp) {
 
-    MembershipJpaEntity entity = jpaMembershipRepository
+    var entity = jpaMembershipRepository
         .findById(Long.parseLong(membershipId.value()))
         .orElseThrow(
             () -> new EntityNotFoundException("member does not exist : " + membershipId.value()));

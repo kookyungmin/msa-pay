@@ -19,7 +19,7 @@ public class FindMembershipController {
 
   @GetMapping("/membership/{membershipId}")
   ResponseEntity<Membership> findMembershipByMemberId(@PathVariable String membershipId) {
-    FindMembershipCommand command = FindMembershipCommand.builder()
+    var command = FindMembershipCommand.builder()
         .membershipId(membershipId)
         .build();
 

@@ -23,7 +23,7 @@ public class RegisterBankAccountController {
       @RequestBody RegisterBankAccountRequest request
   ) {
 
-    RegisterBankAccountCommand command = RegisterBankAccountCommand.builder()
+    var command = RegisterBankAccountCommand.builder()
         .membershipId(request.membershipId())
         .bankName(request.bankName())
         .bankAccountNumber(request.bankAccountNumber())

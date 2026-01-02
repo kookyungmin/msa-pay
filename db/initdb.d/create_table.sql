@@ -20,3 +20,15 @@ create table banking.registered_bank_account (
 alter table banking.registered_bank_account
     add constraint uk_member_bank_account
         unique (membership_id, bank_name, bank_account_number);
+
+create table banking.firm_banking_request (
+  id bigint not null auto_increment,
+  error_msg varchar(255),
+  from_bank_account_number varchar(255),
+  from_bank_name varchar(255),
+  money_amount integer not null,
+  status enum ('FAILED','REQUESTED','SUCCESS'),
+  to_bank_account_number varchar(255),
+  to_bank_name varchar(255),
+  primary key (id)
+) engine=InnoDB

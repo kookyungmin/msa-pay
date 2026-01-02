@@ -20,13 +20,13 @@ public class RegisterMembershipController {
 
   @PostMapping("/membership")
   ResponseEntity<Membership> registerMembership(@RequestBody RegisterMembershipRequest request) {
-    RegisterMembershipCommand command = RegisterMembershipCommand.builder()
+    var command = RegisterMembershipCommand.builder()
         .name(request.name())
         .address(request.address())
         .email(request.email())
         .isCorp(request.isCorp())
         .build();
-    Membership membership = registerMembershipUseCase.registerMembership(command);
+    var membership = registerMembershipUseCase.registerMembership(command);
 
     return ResponseEntity.ok(membership);
   }
