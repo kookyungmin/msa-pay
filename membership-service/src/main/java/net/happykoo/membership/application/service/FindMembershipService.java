@@ -1,7 +1,7 @@
 package net.happykoo.membership.application.service;
 
 import lombok.RequiredArgsConstructor;
-import net.happykoo.common.UseCase;
+import net.happykoo.common.annotation.UseCase;
 import net.happykoo.membership.application.port.in.FindMembershipUseCase;
 import net.happykoo.membership.application.port.in.command.FindMembershipCommand;
 import net.happykoo.membership.application.port.out.FindMembershipPort;

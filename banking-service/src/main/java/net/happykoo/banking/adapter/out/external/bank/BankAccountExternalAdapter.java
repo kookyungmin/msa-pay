@@ -6,7 +6,7 @@ import net.happykoo.banking.application.port.out.data.FirmBankingData;
 import net.happykoo.banking.application.port.out.payload.BankAccountPayload;
 import net.happykoo.banking.application.port.out.data.BankAccountData;
 import net.happykoo.banking.application.port.out.payload.FirmBankingPayload;
-import net.happykoo.common.ExternalSystemAdapter;
+import net.happykoo.common.annotation.ExternalSystemAdapter;
 
 @ExternalSystemAdapter
 public class BankAccountExternalAdapter implements RequestBankAccountInfoPort,

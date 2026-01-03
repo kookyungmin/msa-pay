@@ -9,7 +9,7 @@ import net.happykoo.banking.domain.RegisteredBankAccount;
 import net.happykoo.banking.domain.RegisteredBankAccount.BankAccountNumber;
 import net.happykoo.banking.domain.RegisteredBankAccount.BankName;
 import net.happykoo.banking.domain.RegisteredBankAccount.MembershipId;
-import net.happykoo.common.PersistenceAdapter;
+import net.happykoo.common.annotation.PersistenceAdapter;
 
 @PersistenceAdapter
 @RequiredArgsConstructor

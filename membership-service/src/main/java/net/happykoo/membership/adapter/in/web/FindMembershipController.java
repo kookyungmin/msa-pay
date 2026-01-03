@@ -1,7 +1,7 @@
 package net.happykoo.membership.adapter.in.web;
 
 import lombok.RequiredArgsConstructor;
-import net.happykoo.common.WebAdapter;
+import net.happykoo.common.annotation.WebAdapter;
 import net.happykoo.membership.application.port.in.FindMembershipUseCase;
 import net.happykoo.membership.application.port.in.command.FindMembershipCommand;
 import net.happykoo.membership.domain.Membership;

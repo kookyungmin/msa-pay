@@ -1,4 +1,4 @@
-package net.happykoo.common;
+package net.happykoo.common.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Component
-public @interface PersistenceAdapter {
+public @interface UseCase {
 
   @AliasFor(annotation = Component.class)
   String value() default "";

@@ -4,3 +4,4 @@ include("common")
 
 include("banking-service")
 include("money-service")
+include("logging-consumer")

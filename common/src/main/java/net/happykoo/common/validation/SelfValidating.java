@@ -1,4 +1,4 @@
-package net.happykoo.common;
+package net.happykoo.common.validation;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;

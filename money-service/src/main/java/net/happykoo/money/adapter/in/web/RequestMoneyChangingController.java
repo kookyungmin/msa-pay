@@ -1,7 +1,7 @@
 package net.happykoo.money.adapter.in.web;
 
 import lombok.RequiredArgsConstructor;
-import net.happykoo.common.WebAdapter;
+import net.happykoo.common.annotation.WebAdapter;
 import net.happykoo.money.adapter.in.web.request.IncreaseMoneyRequest;
 import net.happykoo.money.application.port.in.IncreaseMoneyRequestUseCase;
 import net.happykoo.money.application.port.in.command.IncreaseMoneyRequestCommand;

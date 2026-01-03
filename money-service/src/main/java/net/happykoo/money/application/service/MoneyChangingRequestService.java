@@ -2,7 +2,7 @@ package net.happykoo.money.application.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import net.happykoo.common.UseCase;
+import net.happykoo.common.annotation.UseCase;
 import net.happykoo.money.application.port.in.IncreaseMoneyRequestUseCase;
 import net.happykoo.money.application.port.in.command.IncreaseMoneyRequestCommand;
 import net.happykoo.money.application.port.out.ChangeMemberMoneyPort;

@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: happypay-logging-consumer
+  jackson:
+    time-zone: Asia/Seoul
+  # JPA 설정
+  jpa:
+    hibernate:
+      ddl-auto: none # DB 초기화 전략 (none, create, create-drop, update, validate)
+    properties:
+      hibernate:
+        auto_quote_keyword: false
+        globally_quoted_identifiers: false
+        format_sql: true     # 쿼리 로그 포맷 (정렬)
+        show_sql: true       # 쿼리 로그 출력
+        jdbc:
+          time_zone: Asia/Seoul
+  kafka:
+    bootstrap-servers: [ "localhost:29094" ]
+    group-id: logging-consumer
+logging:
+  topic: happypay.logging.out.stdout
+  level:
+    org:
+      hibernate:
+        orm:
+          jdbc:
+            bind: TRACE

@@ -17,7 +17,7 @@ import net.happykoo.banking.domain.FirmBankingRequest.FromBankName;
 import net.happykoo.banking.domain.FirmBankingRequest.MoneyAmount;
 import net.happykoo.banking.domain.FirmBankingRequest.ToBankAccountNumber;
 import net.happykoo.banking.domain.FirmBankingRequest.ToBankName;
-import net.happykoo.common.UseCase;
+import net.happykoo.common.annotation.UseCase;
 
 @UseCase
 @RequiredArgsConstructor

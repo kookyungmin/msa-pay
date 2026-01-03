@@ -1,0 +1,8 @@
+spring:
+  kafka:
+    bootstrap-servers: [ "kafka:9092" ]
+    group-id: logging-consumer
+  # JPA 설정
+  jpa:
+    hibernate:
+      ddl-auto: none

@@ -1,7 +1,7 @@
 package net.happykoo.money.adapter.out.persistence;
 
 import lombok.RequiredArgsConstructor;
-import net.happykoo.common.PersistenceAdapter;
+import net.happykoo.common.annotation.PersistenceAdapter;
 import net.happykoo.money.adapter.out.persistence.jpa.JpaMemberMoneyRepository;
 import net.happykoo.money.adapter.out.persistence.jpa.entity.JpaMemberMoneyEntity;
 import net.happykoo.money.application.port.out.ChangeMemberMoneyPort;

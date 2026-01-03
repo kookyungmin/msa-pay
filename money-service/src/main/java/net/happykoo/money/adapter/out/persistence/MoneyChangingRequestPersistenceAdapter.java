@@ -1,12 +1,11 @@
 package net.happykoo.money.adapter.out.persistence;
 
 import lombok.RequiredArgsConstructor;
-import net.happykoo.common.PersistenceAdapter;
+import net.happykoo.common.annotation.PersistenceAdapter;
 import net.happykoo.money.adapter.out.persistence.jpa.JpaMoneyChangingRequestRepository;
 import net.happykoo.money.adapter.out.persistence.jpa.entity.JpaMoneyChangingRequestEntity;
 import net.happykoo.money.application.port.out.SaveMoneyChangingRequestPort;
 import net.happykoo.money.domain.MoneyChangingRequest;
-import net.happykoo.money.domain.MoneyChangingRequest.Message;
 import net.happykoo.money.domain.MoneyChangingRequest.MoneyAmount;
 import net.happykoo.money.domain.MoneyChangingRequest.MoneyChangingRequestId;
 import net.happykoo.money.domain.MoneyChangingRequest.RequestStatus;

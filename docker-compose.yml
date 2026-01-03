@@ -1,4 +1,57 @@
 services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.3.10
+    ports:
+      - "22181:2181"
+    networks:
+      - happypay_network
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+
+  kafka:
+    image: confluentinc/cp-kafka:7.3.10
+    depends_on:
+      - zookeeper
+    ports:
+      - "29092:9092"
+      - "29094:9094"
+    networks:
+      - happypay_network
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      # 위에서 설정한 Listener 에 맞게 IP 와 Port 지정
+      KAFKA_LISTENERS: INTERNAL://0.0.0.0:9092,EXTERNAL://0.0.0.0:29094
+      #      요청 IP와 Port를 통해서 Kafka는 Listener를 구분하고, Client에게 적절한 IpAddr:Port 를 선택 후 반환
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL://${DOCKER_HOST_IP:-localhost}:29094
+      # 내부와 외부 네트워크를 구분하기 위한 보안 설정
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      # broker 1대 일때는 추가해줘야 함(안 그러면 3대 복제하려고 시도함)
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:v0.7.2
+    depends_on:
+      - kafka
+      - zookeeper
+    ports:
+      - "28081:8080"
+    networks:
+      - happypay_network
+    environment:
+      - DYNAMIC_CONFIG_ENABLED=true
+      - KAFKA_CLUSTERS_0_NAME=Kafka
+      - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:2181
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
+
   mysql:
     image: mysql:8.0.33
     networks:
@@ -15,6 +68,7 @@ services:
       - MYSQL_USER=local
       - MYSQL_PASSWORD=local
       - MYSQL_DATABASE=happypay
+
   membership-service:
     image: happy-pay-membership-service:0.0.1
     pull_policy: never # 운영 환경에서는 always
@@ -26,6 +80,7 @@ services:
       - mysql
     environment:
       SPRING_PROFILES_ACTIVE: local
+
   banking-service:
     image: happy-pay-banking-service:0.0.1
     pull_policy: never # 운영 환경에서는 always
@@ -38,6 +93,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: local
       SPRING_JPA_HIBERNATE_DDL_AUTO: none
+
   money-service:
     image: happy-pay-money-service:0.0.1
     pull_policy: never # 운영 환경에서는 always
@@ -49,7 +105,18 @@ services:
       - mysql
     environment:
       SPRING_PROFILES_ACTIVE: local
-      SPRING_JPA_HIBERNATE_DDL_AUTO: create
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
+
+  logging-consumer:
+    image: happy-pay-logging-consumer:0.0.1
+    pull_policy: never # 운영 환경에서는 always
+    networks:
+      - happypay_network
+    ports:
+      - "18090:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
 
 networks:
   happypay_network:

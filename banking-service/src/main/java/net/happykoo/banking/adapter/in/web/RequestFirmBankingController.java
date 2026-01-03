@@ -5,7 +5,7 @@ import net.happykoo.banking.adapter.in.web.request.RequestFirmBankingRequest;
 import net.happykoo.banking.application.port.in.RequestFirmBankingUseCase;
 import net.happykoo.banking.application.port.in.command.RequestFirmBankingCommand;
 import net.happykoo.banking.domain.FirmBankingRequest;
-import net.happykoo.common.WebAdapter;
+import net.happykoo.common.annotation.WebAdapter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

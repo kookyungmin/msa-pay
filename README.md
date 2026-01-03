@@ -68,6 +68,14 @@ MSA, 헥사고날 아키텍처 기반 간편 결제 시스템
 
 ![Money_Sequence_Example](image/Money_Sequence_Example.png)
 
+```
+# 이미지 빌드
+./gradlew :money-service:jibDockerBuild
+
+# 이미지 빌드 후 dockerhub push
+./gradle :money-service:jib
+```
+
 ### Remittance Service
 
 고객 간 송금 기능 및 송금 내역 정보 조회 등의 기능을 제공하는 서비스
@@ -87,7 +95,23 @@ MSA, 헥사고날 아키텍처 기반 간편 결제 시스템
 ![Settlement_Sequence_Example](image/Settlement_Sequence_Example.png)
 
 
+### Kafka 명령
 
+토픽 리스트 보기
+
+```
+kafka-topics --list --bootstrap-server localhost:9092
+```
+
+Topic 생성
+
+```
+kafka-topics --create --bootstrap-server localhost:9092 \
+    --partitions 1  \
+    --replication-factor 1 \
+    --config min.insync.replicas=1 \
+    --topic happypay.logging.out.stdout
+```
 
 
 

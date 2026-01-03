@@ -14,7 +14,7 @@ import net.happykoo.banking.domain.FirmBankingRequest.MoneyAmount;
 import net.happykoo.banking.domain.FirmBankingRequest.ToBankAccountNumber;
 import net.happykoo.banking.domain.FirmBankingRequest.ToBankName;
 import net.happykoo.banking.domain.FirmBankingRequestStatus;
-import net.happykoo.common.PersistenceAdapter;
+import net.happykoo.common.annotation.PersistenceAdapter;
 
 @PersistenceAdapter
 @RequiredArgsConstructor

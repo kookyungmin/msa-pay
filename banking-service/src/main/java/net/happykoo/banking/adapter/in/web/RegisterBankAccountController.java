@@ -5,7 +5,7 @@ import net.happykoo.banking.adapter.in.web.request.RegisterBankAccountRequest;
 import net.happykoo.banking.application.port.in.RegisterBankAccountUseCase;
 import net.happykoo.banking.application.port.in.command.RegisterBankAccountCommand;
 import net.happykoo.banking.domain.RegisteredBankAccount;
-import net.happykoo.common.WebAdapter;
+import net.happykoo.common.annotation.WebAdapter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -15,7 +15,10 @@ spring:
         show_sql: true       # 쿼리 로그 출력
         jdbc:
           time_zone: Asia/Seoul
+  kafka:
+    bootstrap-servers: [ "localhost:29094" ]
 logging:
+  topic: happypay.logging.out.stdout
   level:
     org:
       hibernate:
