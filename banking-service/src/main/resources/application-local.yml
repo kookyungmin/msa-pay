@@ -10,3 +10,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+service:
+  membership:
+    url: http://membership-service:8080

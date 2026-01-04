@@ -6,6 +6,7 @@ import net.happykoo.banking.application.port.in.command.RegisterBankAccountComma
 import net.happykoo.banking.application.port.out.FindBankAccountPort;
 import net.happykoo.banking.application.port.out.RegisterBankAccountPort;
 import net.happykoo.banking.application.port.out.RequestBankAccountInfoPort;
+import net.happykoo.banking.application.port.out.RequestMembershipPort;
 import net.happykoo.banking.application.port.out.payload.BankAccountPayload;
 import net.happykoo.banking.domain.RegisteredBankAccount;
 import net.happykoo.common.annotation.UseCase;
@@ -17,11 +18,15 @@ public class RegisterBankAccountService implements RegisterBankAccountUseCase {
   private final RegisterBankAccountPort registerBankAccountPort;
   private final FindBankAccountPort findBankAccountPort;
   private final RequestBankAccountInfoPort requestBankAccountInfoPort;
+  private final RequestMembershipPort requestMembershipPort;
 
   @Override
   public RegisteredBankAccount registerBankAccount(RegisterBankAccountCommand command) {
     //은행 계좌를 등록해야하는 서비스
-    //TODO: 1. 등록된 멤버인지 확인
+    if (!requestMembershipPort.existsMembership(
+        new RegisteredBankAccount.MembershipId(command.getMembershipId()))) {
+      throw new IllegalArgumentException("membership not found.");
+    }
 
     //2. 이미 등록된 계좌인지 확인
     if (findBankAccountPort.existsBankAccount(

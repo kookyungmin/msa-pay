@@ -25,3 +25,6 @@ logging:
         orm:
           jdbc:
             bind: TRACE
+service:
+  membership:
+    url: http://localhost:18081
