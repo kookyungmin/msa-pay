@@ -57,7 +57,7 @@ public class MoneyChangingRequestService implements IncreaseMoneyRequestUseCase,
     }
 
     //4. 성공하면, 멤버의 머니도 증액, 실패하면 상태 변경
-    boolean isSuccess = "success".equals(countDownLatchManager.getDataForKey(task.getTaskId()));
+    var isSuccess = "success".equals(countDownLatchManager.getDataForKey(task.getTaskId()));
     if (isSuccess) {
       changeMemberMoneyPort.increaseMemberMoney(
           new MemberMoney.MembershipId(command.getTargetMembershipId()),
@@ -75,8 +75,8 @@ public class MoneyChangingRequestService implements IncreaseMoneyRequestUseCase,
 
   @Override
   public void processRechargingMoneyResultTask(RechargingMoneyTask task) {
-    String taskId = task.getTaskId();
-    boolean isSuccess = task.getSubTasks()
+    var taskId = task.getTaskId();
+    var isSuccess = task.getSubTasks()
         .stream()
         .allMatch(subTask -> subTask.getStatus() == TaskStatus.SUCCESS);
 
