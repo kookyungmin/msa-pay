@@ -50,6 +50,8 @@ public class AxonMemberMoneyAggregate {
   @CommandHandler
   public void increaseBalance(AxonIncreaseMemberMoneyCommand command) {
     log.info("AxonIncreaseMemberMoneyCommand Handler >>> {}", command);
+    //실패한 경우 - 보상 트랜잭션 실행
+//    throw new RuntimeException("Money Recharge Failed!");
     apply(new AxonIncreaseMemberMoneyEvent(
         command.aggregateId(),
         command.membershipId(),

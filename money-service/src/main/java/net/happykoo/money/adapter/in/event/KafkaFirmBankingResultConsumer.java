@@ -21,12 +21,13 @@ public class KafkaFirmBankingResultConsumer {
 
 
   @KafkaListener(
-      topics = "${task.firm-banking-topic.result}",
+      topics = "${task.firm-banking-result-topic}",
       groupId = "${spring.kafka.group-id}")
   public void receive(ConsumerRecord<String, String> record) {
     try {
       var payload = objectMapper.readValue(record.value(),
           FirmBankingResultPayload.class);
+      log.info("firmbanking result received payload = {}", payload);
 
       //TODO: 원래는 aggregate 생성 후 aggregate 만이 event 발행해야 함
       eventGateway.publish(new AxonFirmBankingResultEvent(

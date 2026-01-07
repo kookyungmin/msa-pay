@@ -29,6 +29,7 @@ public class AxonMemberMoneyProjection {
 
   @EventHandler
   public void on(AxonIncreaseMemberMoneyEvent event) {
+    //TODO: 재시도를 고려하여 멱등성 있게 변경해야함
     log.info("AxonIncreaseMemberMoneyEvent Handler >>> {}", event);
     jpaMemberMoneyRepository.findByMembershipId(String.valueOf(event.membershipId()))
         .ifPresentOrElse(

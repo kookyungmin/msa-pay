@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.happykoo.money.application.axon.command.AxonIncreaseMemberMoneyCommand;
 import net.happykoo.money.application.port.out.FindRegisteredBankAccountPort;
 import net.happykoo.money.application.port.out.FirmBankingPort;
+import net.happykoo.money.application.port.out.data.RegisteredBankAccountInfo;
 import net.happykoo.money.application.port.out.payload.FindRegisteredBankAccountPayload;
 import net.happykoo.money.application.port.out.payload.FirmBankingPayload;
 import net.happykoo.money.domain.axon.event.AxonFirmBankingResultEvent;
@@ -33,6 +34,7 @@ public class AxonMoneyRechargeSaga {
   private Long membershipId;
   private int moneyAmount;
   private String memberMoneyEventStreamId;
+  private RegisteredBankAccountInfo registeredBankAccountInfo;
 
   @StartSaga
   @SagaEventHandler(associationProperty = "rechargingRequestId")
@@ -43,7 +45,7 @@ public class AxonMoneyRechargeSaga {
     this.moneyAmount = event.moneyAmount();
     this.memberMoneyEventStreamId = event.memberMoneyEventStreamId();
 
-    var registeredBankAccountInfo = findRegisteredBankAccountPort.findRegisteredBankAccountInfo(
+    this.registeredBankAccountInfo = findRegisteredBankAccountPort.findRegisteredBankAccountInfo(
         new FindRegisteredBankAccountPayload(String.valueOf(event.membershipId()))
     );
 
@@ -69,7 +71,7 @@ public class AxonMoneyRechargeSaga {
     log.info("AxonFirmBankingResultEvent Saga Handler >>> {}", event);
 
     if (event.isSuccess()) {
-      AxonIncreaseMemberMoneyCommand axonIncreaseMemberMoneyCommand = new AxonIncreaseMemberMoneyCommand(
+      var axonIncreaseMemberMoneyCommand = new AxonIncreaseMemberMoneyCommand(
           memberMoneyEventStreamId,
           membershipId,
           moneyAmount,
@@ -80,6 +82,15 @@ public class AxonMoneyRechargeSaga {
           .whenComplete((r, ex) -> {
             if (ex != null) {
               log.error("IncreaseMoneyRequestByEvent failed", ex);
+              //보상 트랜잭션 실행
+              firmBankingPort.firmBanking(new FirmBankingPayload(
+                  null,
+                  "해피해피은행",
+                  "1234-1234-111",
+                  registeredBankAccountInfo.getBankName(),
+                  registeredBankAccountInfo.getBankAccountNumber(),
+                  moneyAmount
+              ));
             }
           });
     } else {
@@ -91,6 +102,6 @@ public class AxonMoneyRechargeSaga {
   @SagaEventHandler(associationProperty = "rechargingRequestId")
   @EndSaga
   public void on(AxonIncreaseMemberMoneyEvent event) {
-    log.info("AxonIncreaseMemberMoneyEvent Saga Handler >>> {}", event);
+    log.info("AxonIncreaseMemberMoneyEvent Saga Handler Saga End >>> {}", event);
   }
 }

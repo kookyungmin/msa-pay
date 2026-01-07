@@ -42,7 +42,7 @@ public class AxonFirmBankingSaga {
   public void on(AxonFirmBankingRequestEvent event) {
     log.info("AxonFirmBankingRequestEvent Saga Handler >>> {}", event);
 
-    this.externalRequestId = event.firmBankingRequestId();
+    this.externalRequestId = event.externalRequestId();
 
     AxonCreateFirmBankingRequestCommand axonCreateFirmBankingRequestCommand = new AxonCreateFirmBankingRequestCommand(
         UUID.randomUUID().toString(),
