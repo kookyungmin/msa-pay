@@ -151,6 +151,8 @@ Kafka 를 활용한 Saga Pattern 충전 프로세스
 // ㄴ 3-2.7. AxonFirmBankingResultEvent Publish [머니 서비스]
 
 //4. 펌뱅킹 성공 시 AxonIncreaseMemberMoneyEvent Publish -> Projection 에서 Read DB update 및 Saga End [머니 서비스]
+
+//5. 만약, AxonIncreaseMemberMoneyEvent 저장 시 에러 발생하면 보상 트랜잭션 실행
 ```
 
 
