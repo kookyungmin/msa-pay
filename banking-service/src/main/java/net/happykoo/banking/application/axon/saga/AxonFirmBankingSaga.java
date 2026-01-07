@@ -6,8 +6,10 @@ import net.happykoo.banking.application.axon.command.AxonCreateFirmBankingReques
 import net.happykoo.banking.application.axon.command.AxonUpdateFirmBankingRequestStatusCommand;
 import net.happykoo.banking.application.port.out.RequestBankAccountInfoPort;
 import net.happykoo.banking.application.port.out.RequestFirmBankingPort;
+import net.happykoo.banking.application.port.out.SendFirmBankingResultPort;
 import net.happykoo.banking.application.port.out.payload.BankAccountPayload;
 import net.happykoo.banking.application.port.out.payload.FirmBankingPayload;
+import net.happykoo.banking.application.port.out.payload.SendFirmBankingResultPayload;
 import net.happykoo.banking.domain.FirmBankingRequestStatus;
 import net.happykoo.banking.domain.axon.event.AxonCreateFirmBankingRequestEvent;
 import net.happykoo.banking.domain.axon.event.AxonFirmBankingRequestEvent;
@@ -30,6 +32,8 @@ public class AxonFirmBankingSaga {
   private transient RequestFirmBankingPort requestFirmBankingPort;
   @Autowired
   private transient CommandGateway commandGateway;
+  @Autowired
+  private transient SendFirmBankingResultPort sendFirmBankingResultPort;
 
   private String externalRequestId;
 
@@ -47,7 +51,7 @@ public class AxonFirmBankingSaga {
         event.toBankName(),
         event.toBankAccount(),
         event.moneyAmount(),
-        UUID.randomUUID().toString()
+        event.firmBankingRequestId()
     );
 
     commandGateway.send(axonCreateFirmBankingRequestCommand)
@@ -60,6 +64,8 @@ public class AxonFirmBankingSaga {
 
   @SagaEventHandler(associationProperty = "firmBankingRequestId")
   public void on(AxonCreateFirmBankingRequestEvent event) {
+    log.info("AxonCreateFirmBankingRequestEvent Saga Handler >>> {}", event);
+
     var fromBankData = requestBankAccountInfoPort.requestBankAccountInfo(
         new BankAccountPayload(event.fromBankName(), event.fromBankAccountNumber())
     );
@@ -95,7 +101,11 @@ public class AxonFirmBankingSaga {
         "AxonUpdateFirmBankingRequestStatusEvent Saga ended: firmBankingRequestId ={}, externalRequestId = {}",
         event.firmBankingRequestId(), externalRequestId);
     if (externalRequestId != null) {
-      //TODO: money service produce
+      sendFirmBankingResultPort.sendFirmBankingResult(new SendFirmBankingResultPayload(
+          FirmBankingRequestStatus.SUCCESS.equals(event.status()),
+          event.errorMessage(),
+          externalRequestId
+      ));
 
     }
   }

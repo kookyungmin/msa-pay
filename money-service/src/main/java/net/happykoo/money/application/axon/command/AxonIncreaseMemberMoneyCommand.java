@@ -7,7 +7,8 @@ public record AxonIncreaseMemberMoneyCommand(
     @TargetAggregateIdentifier
     String aggregateId,
     Long membershipId,
-    int moneyAmount
+    int moneyAmount,
+    String rechargingRequestId
 ) {
 
 }

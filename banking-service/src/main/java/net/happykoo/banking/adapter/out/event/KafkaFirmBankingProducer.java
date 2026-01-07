@@ -1,12 +1,12 @@
-package net.happykoo.money.adapter.out.event;
+package net.happykoo.banking.adapter.out.event;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.happykoo.banking.application.port.out.SendFirmBankingResultPort;
+import net.happykoo.banking.application.port.out.payload.SendFirmBankingResultPayload;
 import net.happykoo.common.annotation.EventAdapter;
-import net.happykoo.money.application.port.out.FirmBankingPort;
-import net.happykoo.money.application.port.out.payload.FirmBankingPayload;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -15,24 +15,24 @@ import org.springframework.kafka.core.KafkaTemplate;
 @RequiredArgsConstructor
 @EnableConfigurationProperties(KafkaTopicProps.class)
 @Slf4j
-public class KafkaFirmBankingProducer implements FirmBankingPort {
+public class KafkaFirmBankingProducer implements SendFirmBankingResultPort {
 
   private final KafkaTemplate<String, String> kafkaTemplate;
   private final KafkaTopicProps kafkaTopicProps;
   private final ObjectMapper objectMapper;
 
   @Override
-  public void firmBanking(FirmBankingPayload payload) {
+  public void sendFirmBankingResult(SendFirmBankingResultPayload payload) {
     try {
-      String key = payload.rechargingRequestId();
+      String key = payload.externalRequestId();
       String value = objectMapper.writeValueAsString(payload);
-      kafkaTemplate.send(kafkaTopicProps.firmBankingTopic(), key, value)
+      kafkaTemplate.send(kafkaTopicProps.firmBankingResultTopic(), key, value)
           .whenComplete((result, ex) -> {
             if (ex != null) {
               //전송 실패
               log.error(
                   "Kafka send failed. topic={}, key={}",
-                  kafkaTopicProps.firmBankingTopic(),
+                  kafkaTopicProps.firmBankingResultTopic(),
                   key,
                   ex
               );

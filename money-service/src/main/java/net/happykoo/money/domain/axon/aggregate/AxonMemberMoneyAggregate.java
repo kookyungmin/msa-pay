@@ -13,7 +13,6 @@ import net.happykoo.money.domain.axon.event.AxonIncreaseMemberMoneyEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
-import org.axonframework.modelling.saga.SagaLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
 
 @Aggregate
@@ -51,8 +50,11 @@ public class AxonMemberMoneyAggregate {
   @CommandHandler
   public void increaseBalance(AxonIncreaseMemberMoneyCommand command) {
     log.info("AxonIncreaseMemberMoneyCommand Handler >>> {}", command);
-    apply(new AxonIncreaseMemberMoneyEvent(command.aggregateId(), command.membershipId(),
-        command.moneyAmount()));
+    apply(new AxonIncreaseMemberMoneyEvent(
+        command.aggregateId(),
+        command.membershipId(),
+        command.moneyAmount(),
+        command.rechargingRequestId()));
   }
 
   @EventSourcingHandler

@@ -146,15 +146,11 @@ Kafka 를 활용한 Saga Pattern 충전 프로세스
 // ㄴ 3-2-2. Kakfa Consumer -> 펌뱅킹 Event Consume (topic: happypay.task.firmbanking) [뱅킹 서비스]
 // ㄴ 3-2.3. AxonFirmBankingRequestEvent Publish (Saga Start) [뱅킹 서비스]
 // ㄴ 3-2.4. 펌 뱅킹 비즈니스 로직 수행 완료 (Sage End) [뱅킹 서비스]
+// ㄴ 3-2.5. Kafka Producer -> 펌뱅킹 완료 Event Produce (topic: happypay.task.firmbanking.result) [뱅킹 서비스]
+// ㄴ 3-2.6. Kafka Cosnumber -> 펌뱅킹 완료 Event Consume (topic: happypay.task.firmbanking.result) [머니 서비스]
+// ㄴ 3-2.7. AxonFirmBankingResultEvent Publish [머니 서비스]
 
-
-
-//3. AxonIncreaseMemberMoneyCommand Send  -- 머니 서비스
-//4. AxonIncreaseMemberMoneyEvent Apply -- 머니 서비스
-//5-1. AxonMemberMoneyProjection Event Handler 에서 Read DB update -- 머니 서비스
-//5-2. AxonMoneyRechargeSaga AxonCheckRegisteredBankAccountCommand Send -- 머니 서비스
-
-
+//4. 펌뱅킹 성공 시 AxonIncreaseMemberMoneyEvent Publish -> Projection 에서 Read DB update 및 Saga End [머니 서비스]
 ```
 
 

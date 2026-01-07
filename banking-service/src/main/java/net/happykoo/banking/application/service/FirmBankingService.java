@@ -106,6 +106,7 @@ public class FirmBankingService implements RequestFirmBankingUseCase,
     //2. Projection -> JPA 로 읽기용 DB 에 데이터 저장
     //3. Saga -> 계좌 유효상태 확인 및 펌뱅킹 실행 -> 성공/실패 여부에 따라 분기하여 Command 발송
     //4. Projection -> JPA 로 읽기용 DB 에 status 저장
+    //TODO: 원래는 aggregate 생성 후 aggregate 만이 event 발행해야 함
     eventGateway.publish(event);
   }
 

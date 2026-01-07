@@ -192,7 +192,8 @@ public class MoneyChangingRequestService implements IncreaseMoneyRequestUseCase,
     AxonIncreaseMemberMoneyCommand axonIncreaseMemberMoneyCommand = new AxonIncreaseMemberMoneyCommand(
         memberMoney.getEventStreamId(),
         Long.parseLong(command.getTargetMembershipId()),
-        command.getMoneyAmount()
+        command.getMoneyAmount(),
+        null
     );
 
     commandGateway.send(axonIncreaseMemberMoneyCommand)
@@ -206,12 +207,18 @@ public class MoneyChangingRequestService implements IncreaseMoneyRequestUseCase,
   //뱅킹 서비스 사가 연동 용
   @Override
   public void rechargeMoneyRequestByEvent(RechargeMoneyRequestCommand command) {
+    var memberMoney = findMemberMoneyPort.findMemberMoneyByMembershipId(
+        new MemberMoney.MembershipId(command.getTargetMembershipId())
+    );
+
     var axonRechargeMoneyEvent = new AxonRechargeMoneyEvent(
         UUID.randomUUID().toString(),
+        memberMoney.getEventStreamId(),
         Long.parseLong(command.getTargetMembershipId()),
         command.getMoneyAmount()
     );
 
+    //TODO: 원래는 aggregate 생성 후 aggregate 만이 event 발행해야 함
     eventGateway.publish(axonRechargeMoneyEvent);
   }
 }
