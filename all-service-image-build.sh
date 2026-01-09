@@ -1,9 +1,11 @@
 #!/bin/sh
 
-./gradlew :membership-service:jibDockerBuild
-./gradlew :banking-service:jibDockerBuild
-./gradlew :money-service:jibDockerBuild
-./gradlew :remittance-service:jibDockerBuild
+./service-image-build.sh membership-service
+./service-image-build.sh banking-service
+./service-image-build.sh money-service
+./service-image-build.sh remittance-service
+./service-image-build.sh payment-service
 
-./gradlew :logging-consumer:jibDockerBuild
-./gradlew :task-consumer:jibDockerBuild
+./service-image-build.sh logging-consumer
+./service-image-build.sh task-consumer
+
