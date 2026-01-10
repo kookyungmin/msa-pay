@@ -1,15 +1,10 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:test
-    username: user
-    password:
-    driver-class-name: org.h2.Driver
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-
+    url: jdbc:mysql://localhost:13306/membership?serverTimezone=UTC&characterEncoding=UTF-8
+    username: local
+    password: local
+    driver-class-name: com.mysql.cj.jdbc.Driver
   # JPA 설정
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
