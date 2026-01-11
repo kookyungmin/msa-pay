@@ -1,14 +1,17 @@
 package net.happykoo.membership.adapter.out.persistence;
 
 import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import net.happykoo.common.annotation.PersistenceAdapter;
 import net.happykoo.membership.adapter.out.persistence.jpa.JpaMembershipRepository;
 import net.happykoo.membership.adapter.out.persistence.jpa.entity.JpaMembershipEntity;
+import net.happykoo.membership.application.port.in.command.FindMembershipByAddressCommand;
 import net.happykoo.membership.application.port.out.FindMembershipPort;
 import net.happykoo.membership.application.port.out.ModifyMembershipPort;
 import net.happykoo.membership.application.port.out.RegisterMembershipPort;
 import net.happykoo.membership.domain.Membership;
+import net.happykoo.membership.domain.Membership.MembershipAddress;
 import net.happykoo.membership.domain.Membership.MembershipId;
 
 @PersistenceAdapter
@@ -43,6 +46,14 @@ public class MembershipPersistenceAdapter implements RegisterMembershipPort, Fin
         .map(membershipMapper::mapToDomainEntity)
         .orElseThrow(
             () -> new EntityNotFoundException("member does not exist : " + membershipId.value()));
+  }
+
+  @Override
+  public List<Membership> findMembershipByAddress(MembershipAddress address) {
+    return jpaMembershipRepository.findByAddress(address.value())
+        .stream()
+        .map(membershipMapper::mapToDomainEntity)
+        .toList();
   }
 
   @Override

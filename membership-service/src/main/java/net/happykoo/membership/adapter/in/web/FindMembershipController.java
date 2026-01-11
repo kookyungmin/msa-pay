@@ -1,8 +1,10 @@
 package net.happykoo.membership.adapter.in.web;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import net.happykoo.common.annotation.WebAdapter;
 import net.happykoo.membership.application.port.in.FindMembershipUseCase;
+import net.happykoo.membership.application.port.in.command.FindMembershipByAddressCommand;
 import net.happykoo.membership.application.port.in.command.FindMembershipCommand;
 import net.happykoo.membership.domain.Membership;
 import org.springframework.http.ResponseEntity;
@@ -26,4 +28,12 @@ public class FindMembershipController {
     return ResponseEntity.ok(findMembershipUseCase.findMembership(command));
   }
 
+  @GetMapping("/membership/by-address/{address}")
+  ResponseEntity<List<Membership>> findMembershipsByAddress(@PathVariable String address) {
+    var command = FindMembershipByAddressCommand.builder()
+        .address(address)
+        .build();
+
+    return ResponseEntity.ok(findMembershipUseCase.findMembershipsByAddress(command));
+  }
 }

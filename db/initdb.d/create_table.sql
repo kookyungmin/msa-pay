@@ -150,3 +150,9 @@ CREATE TABLE money.saga_entry_seq (
 );
 
 INSERT INTO money.saga_entry_seq VALUES (1);
+
+
+insert into money.member_money(membership_id, balance)
+select substring_index(from_bank_account_number, '-', -1), sum(money_amount)
+from banking.firm_banking_request
+group by from_bank_account_number;

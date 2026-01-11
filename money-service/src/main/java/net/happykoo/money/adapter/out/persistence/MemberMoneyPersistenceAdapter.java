@@ -1,6 +1,7 @@
 package net.happykoo.money.adapter.out.persistence;
 
 import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import net.happykoo.common.annotation.PersistenceAdapter;
 import net.happykoo.money.adapter.out.persistence.jpa.JpaMemberMoneyRepository;
@@ -41,5 +42,13 @@ public class MemberMoneyPersistenceAdapter implements ChangeMemberMoneyPort, Fin
   @Override
   public boolean existsMemberMoneyByMembershipId(MembershipId membershipId) {
     return jpaMemberMoneyRepository.existsByMembershipId(membershipId.value());
+  }
+
+  @Override
+  public List<MemberMoney> findAllMemberMoneyByMembershipIds(List<String> membershipIds) {
+    return jpaMemberMoneyRepository.findAllByMembershipIdIn(membershipIds)
+        .stream()
+        .map(memberMoneyMapper::mapToDomainEntity)
+        .toList();
   }
 }
