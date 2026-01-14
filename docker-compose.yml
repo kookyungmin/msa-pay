@@ -81,6 +81,16 @@ services:
       - MYSQL_PASSWORD=local
       - MYSQL_DATABASE=happypay
 
+  api-gateway:
+    image: happy-pay-api-gateway:0.0.1
+    pull_policy: never # 운영 환경에서는 always
+    networks:
+      - happypay_network
+    ports:
+      - "18080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+
   membership-service:
     image: happy-pay-membership-service:0.0.1
     pull_policy: never # 운영 환경에서는 always

@@ -8,4 +8,5 @@
 
 ./service-image-build.sh logging-consumer
 ./service-image-build.sh task-consumer
+./service-image-build.sh api-gateway
 

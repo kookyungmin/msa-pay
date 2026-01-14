@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: membership-service
+          uri: http://membership-service:8080
+          predicates:
+            - Path=/membership/**
+          filters:
+            - StripPrefix=1
+        - id: banking-service
+          uri: http://banking-service:8080
+          predicates:
+            - Path=/banking/**
+          filters:
+            - StripPrefix=1
+        - id: money-service
+          uri: http://money-service:8080
+          predicates:
+            - Path=/money/**
+          filters:
+            - StripPrefix=1
+
