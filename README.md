@@ -242,4 +242,27 @@ path "kv-v1/*" {
 vault write auth/token/create policies=default
 ```
 
+### Graceful Shutdown
+
+```
+SIGINT: Ctrl+C or Intellij Stop
+SIGTERM: 15 (process kill 명령 했을 때)
+SIGKILL: kill -9 PID
+
+SIGINT 와 SIGTERM 명령을 받았을 때, graceful shutdown 이 되게 구성해야 함
+
+-> 종료 신호 이후의 요청 block (Load Balancer ..)
+-> 그 전에 들어온 요청은 정상적으로 처리할 때 까지 일정 시간 대기 하고, 카프카 Consumer 같은 경우는 해당 작업이 정상적으로 종료 되었을 때 commit 되게 처리 -> 중복이 생길 수 있기에 멱등키 등을 이용
+-> 다시 APP 기동 시 JVM 빈들이 모두 정상적으로 로드 된 후 요청 처리하게 구성
+
+springboot 설정 (application.yml)
+
+server:
+    shutdown: grenceful
+spring:
+    lifecycle:
+        timeout-per-shutdown-phase: 30s
+```
+
+
 

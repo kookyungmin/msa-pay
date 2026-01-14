@@ -16,6 +16,6 @@ public class LoggingAspect {
   @Before("execution(* net.happykoo.*.adapter.in.web.*.*(..))")
   public void beforeMethodExecution(JoinPoint joinPoint) {
     String methodName = joinPoint.getSignature().getName();
-    loggingProducer.sendMessage("logging", "before executing method : " + methodName);
+//    loggingProducer.sendMessage("logging", "before executing method : " + methodName);
   }
 }

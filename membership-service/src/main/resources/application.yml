@@ -1,6 +1,10 @@
+server:
+  shutdown: graceful # graceful shutdown
 spring:
   application:
     name: happypay-membership-service
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
   jackson:
     time-zone: Asia/Seoul
   # JPA 설정

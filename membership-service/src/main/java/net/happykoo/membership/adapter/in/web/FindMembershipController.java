@@ -25,6 +25,13 @@ public class FindMembershipController {
         .membershipId(membershipId)
         .build();
 
+    //Graceful Shutdown Test
+    try {
+      Thread.sleep(20000);
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
+
     return ResponseEntity.ok(findMembershipUseCase.findMembership(command));
   }
 
