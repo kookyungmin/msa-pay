@@ -262,6 +262,9 @@ server:
 spring:
     lifecycle:
         timeout-per-shutdown-phase: 30s
+        
+ K8S Pod 설정
+ terminationGracePeriodSeconds: 30s
 ```
 
 
