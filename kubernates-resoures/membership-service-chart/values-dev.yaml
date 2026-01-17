@@ -1,0 +1,22 @@
+replicaCount: 1
+
+image:
+  repository: membership-service
+  pullPolicy: IfNotPresent
+  tag: "lastest"
+
+fullnameOverride: "dev-membership-service"
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true
+  className: "nginx"
+  hosts:
+    - host: dev.membership-service.com
+      paths:
+        - path: /
+          pathType: Prefix
+env: dev

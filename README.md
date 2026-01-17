@@ -7,6 +7,7 @@ MSA, 헥사고날 아키텍처 기반 간편 결제 시스템
 ![Docker](https://shields.io/badge/docker-black?logo=docker&style=for-the-badge%22)
 ![Kafka](https://shields.io/badge/kafka-black?logo=apache-kafka&style=for-the-badge%22)
 ![Mysql](https://shields.io/badge/mysql-black?logo=mysql&style=for-the-badge%22)
+![k8s](https://shields.io/badge/k8s-black?logo=kubernates&style=for-the-badge%22)
 <!-- prettier-ignore-end -->
 
 ### System Requirements
